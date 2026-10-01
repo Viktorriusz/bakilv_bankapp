@@ -10,6 +10,15 @@ using System.Windows;
 
 namespace bakilv_bankapp
 {
+    static class JsonFrissites
+    {
+        public static void JsonFrissitese(List<user> felhasznalok)
+        {
+            string fajl = "C:\\Users\\bakilv\\source\\repos\\bakilv_bankapp\\bakilv_bankapp\\felhasznalok.json";
+            string json = JsonSerializer.Serialize(felhasznalok, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(fajl, json);
+        }
+    }
 
     public class user
     {

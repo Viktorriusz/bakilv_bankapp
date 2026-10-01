@@ -39,6 +39,7 @@ namespace bakilv_bankapp
             felhasznalo.egyenleg += osszeg;
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
+            JsonFrissites.JsonFrissitese(Users.felhasznalok);
         }
 
         private void penzlevetel(object sender, RoutedEventArgs e)
@@ -47,6 +48,7 @@ namespace bakilv_bankapp
             felhasznalo.egyenleg -= osszeg;
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
+            JsonFrissites.JsonFrissitese(Users.felhasznalok);
         }
     }
 }
