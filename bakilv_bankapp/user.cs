@@ -55,7 +55,7 @@ namespace bakilv_bankapp
     {
         public static List<user> JsonBeolvasas()
         {
-            string fajl = "C:\\Users\\bakilv\\source\\repos\\bakilv_bankapp\\bakilv_bankapp\\felhasznalok.json";
+            string fajl = "C:\\Users\\Viktor\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\felhasznalok.json";
 
             string json = File.ReadAllText(fajl);
 

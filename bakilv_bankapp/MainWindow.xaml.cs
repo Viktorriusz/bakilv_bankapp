@@ -35,8 +35,23 @@ namespace bakilv_bankapp
 
         private void penzfeltoltes(object sender, RoutedEventArgs e)
         {
-            double osszeg = double.Parse(osszeglabel.Text);
-            felhasznalo.egyenleg += osszeg;
+            var osszeg = osszeglabel.Text;
+            if (!double.TryParse(osszeg, out double osszegdouble))
+            {
+                MessageBox.Show("Kérlek, számot adj meg!");
+                return;
+            }
+            if (osszegdouble < 0)
+            {
+                MessageBox.Show("Negatív összeget nem tölthetsz fel!");
+                return;
+            }
+            if (osszegdouble == 0)
+            {
+                MessageBox.Show("0 Ft-ot nem tölthetsz fel!");
+                return;
+            }
+            felhasznalo.egyenleg += osszegdouble;
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
             JsonFrissites.JsonFrissitese(Users.felhasznalok);
@@ -44,8 +59,28 @@ namespace bakilv_bankapp
 
         private void penzlevetel(object sender, RoutedEventArgs e)
         {
-            double osszeg = double.Parse(osszeglabel.Text);
-            felhasznalo.egyenleg -= osszeg;
+            var osszeg = osszeglabel.Text;
+            if (!double.TryParse(osszeg, out double osszegdouble))
+            {
+                MessageBox.Show("Kérlek, számot adj meg!");
+                return;
+            }
+            if (felhasznalo.egyenleg < osszegdouble)
+            {
+                MessageBox.Show("Nincs elég pénz az egyenlegeden!");
+                return;
+            }
+            if (osszegdouble < 0)
+            {
+                MessageBox.Show("Negatív összeget nem vehetsz le!");
+                return;
+            }
+            if (osszegdouble == 0)
+            {
+                MessageBox.Show("0 Ft-ot nem vehetsz le!");
+                return;
+            }
+            felhasznalo.egyenleg -= osszegdouble;
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
             JsonFrissites.JsonFrissitese(Users.felhasznalok);
