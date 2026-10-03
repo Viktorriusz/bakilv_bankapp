@@ -14,8 +14,14 @@ namespace bakilv_bankapp
     {
         public static void JsonFrissitese(List<user> felhasznalok)
         {
-            string fajl = "C:\\Users\\bakilv\\source\\repos\\bakilv_bankapp\\bakilv_bankapp\\felhasznalok.json";
+            string fajl = "C:\\Users\\Viktor\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\felhasznalok.json";
             string json = JsonSerializer.Serialize(felhasznalok, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(fajl, json);
+        }
+        public static void JsonFrissiteseTransaction(List<transaction> tranzakciok)
+        {
+            string fajl = "C:\\Users\\Viktor\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\tranzakciok.json";
+            string json = JsonSerializer.Serialize(tranzakciok, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(fajl, json);
         }
     }
@@ -39,33 +45,41 @@ namespace bakilv_bankapp
 
     public class transaction
     {
-        public int id {  get; set; }
+        public int id { get; set; }
         public int felhasznaloid { get; set; }
         public double valtozas { get; set; }
-        public DateTime date;
-        public transaction(int id, int userId, double valtozas, DateTime date)
+        public string date { get; set; }
+        public transaction(int id, int userId, double valtozas, string date)
         {
             this.id = id;
             this.felhasznaloid = userId;
             this.valtozas = valtozas;
             this.date = date;
         }
-    }
-    public class Users
-    {
-        public static List<user> JsonBeolvasas()
+
+        public static List<transaction> JsonBeolvasasTransaction()
         {
-            string fajl = "C:\\Users\\Viktor\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\felhasznalok.json";
-
+            string fajl = "C:\\Users\\Viktor\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\tranzakciok.json";
             string json = File.ReadAllText(fajl);
-
-            List<user> felhasznalok = JsonSerializer.Deserialize<List<user>>(json);
-
-            return felhasznalok;
+            List<transaction> tranzakciok = JsonSerializer.Deserialize<List<transaction>>(json);
+            return tranzakciok;
         }
+        public static List<transaction> tranzakciok = JsonBeolvasasTransaction();
+}
+        public class Users
+        {
+            public static List<user> JsonBeolvasas()
+            {
+                string fajl = "C:\\Users\\Viktor\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\felhasznalok.json";
 
-        public static List<user> felhasznalok = JsonBeolvasas();
+                string json = File.ReadAllText(fajl);
 
+                List<user> felhasznalok = JsonSerializer.Deserialize<List<user>>(json);
 
-    }
-   }
+                return felhasznalok;
+            }
+
+            public static List<user> felhasznalok = JsonBeolvasas();
+
+        }
+ }

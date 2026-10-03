@@ -55,11 +55,13 @@ namespace bakilv_bankapp
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
             JsonFrissites.JsonFrissitese(Users.felhasznalok);
+            transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, osszegdouble, DateTime.Now.ToString()));
+            JsonFrissites.JsonFrissiteseTransaction(transaction.tranzakciok);
         }
 
         private void penzlevetel(object sender, RoutedEventArgs e)
         {
-            var osszeg = osszeglabel.Text;
+            string osszeg = osszeglabel.Text;
             if (!double.TryParse(osszeg, out double osszegdouble))
             {
                 MessageBox.Show("Kérlek, számot adj meg!");
@@ -84,6 +86,8 @@ namespace bakilv_bankapp
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
             JsonFrissites.JsonFrissitese(Users.felhasznalok);
+            transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, -osszegdouble, DateTime.Now.ToString()));
+            JsonFrissites.JsonFrissiteseTransaction(transaction.tranzakciok);
         }
     }
 }

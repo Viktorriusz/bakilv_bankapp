@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="Crack Bank - panel" Height="450" Width="800">
     <Grid>
-        <Label x:Name="egyenleglabel" Content="Egyenleg" HorizontalAlignment="Center" VerticalAlignment="Center" Width="116" RenderTransformOrigin="0.985,-0.309" FontSize="20"/>
+        <Label x:Name="egyenleglabel" Content="Egyenleg" HorizontalAlignment="Center" VerticalAlignment="Center" Width="169" RenderTransformOrigin="0.985,-0.309" FontSize="14"/>
         <Button x:Name="feltoltes" Content="Feltöltés" HorizontalAlignment="Left" Margin="314,240,0,0" VerticalAlignment="Top" Height="35" Width="72" Click="penzfeltoltes"/>
         <Button x:Name="levetel" Content="Levétel" HorizontalAlignment="Left" Margin="400,240,0,0" VerticalAlignment="Top" Height="35" Width="72" Click="penzlevetel"/>
-        <ListBox x:Name="tranzactionlog" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="566,58,10,10"/>
+        <ListBox x:Name="tranzakciolog" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="566,58,10,10"/>
         <Label x:Name="udvlabel" Content="Üdv" HorizontalAlignment="Center"    Margin="0,117,0,0" VerticalAlignment="Top" Width="116" RenderTransformOrigin="0.307,0.723"/>
         <TextBox x:Name="osszeglabel" HorizontalAlignment="Center" Margin="0,301,0,0" TextWrapping="Wrap" Text="Összeg" VerticalAlignment="Top" Width="169" Height="24" FontSize="16"/>
 

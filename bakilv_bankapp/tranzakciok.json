@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "felhasznaloid": 1,
+    "valtozas": -5000,
+    "date": "2026. 10. 03. 14:51:32"
+  },
+  {
+    "id": 2,
+    "felhasznaloid": 1,
+    "valtozas": 5000,
+    "date": "2026. 10. 03. 14:51:32"
+  },
+  {
+    "id": 3,
+    "felhasznaloid": 1,
+    "valtozas": 5000,
+    "date": "2026. 10. 03. 14:51:32"
+  },
+  {
+    "id": 4,
+    "felhasznaloid": 1,
+    "valtozas": 5000,
+    "date": "2026. 10. 03. 14:51:32"
+  }
+]
