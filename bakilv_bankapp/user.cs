@@ -49,12 +49,15 @@ namespace bakilv_bankapp
         public int felhasznaloid { get; set; }
         public double valtozas { get; set; }
         public string date { get; set; }
-        public transaction(int id, int felhasznaloid, double valtozas, string date)
+        
+        public double egyenleg { get; set; }
+        public transaction(int id, int felhasznaloid, double valtozas, string date, double egyenleg)
         {
             this.id = id;
             this.felhasznaloid = felhasznaloid;
             this.valtozas = valtozas;
             this.date = date;
+            this.egyenleg = egyenleg;
         }
 
         public static List<transaction> JsonBeolvasasTransaction()

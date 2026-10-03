@@ -32,15 +32,7 @@ namespace bakilv_bankapp
             udvlabel.Content = nev;
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
-            tranzakciolog.Items.Clear();
-
-            foreach (var elem in transaction.tranzakciok)
-            {
-                if (elem != null && elem.felhasznaloid == felhasznalo.id)
-                {
-                    tranzakciolog.Items.Add($"ID: {elem.id} | Változás: {elem.valtozas:N0} Ft | Dátum: {elem.date}");
-                }
-            }
+            logokfrissitese();
         }
 
         private void penzfeltoltes(object sender, RoutedEventArgs e)
@@ -65,7 +57,7 @@ namespace bakilv_bankapp
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
             JsonFrissites.JsonFrissitese(Users.felhasznalok);
-            transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, osszegdouble, DateTime.Now.ToString()));
+            transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, osszegdouble, DateTime.Now.ToString(), felhasznalo.egyenleg));
             JsonFrissites.JsonFrissiteseTransaction(transaction.tranzakciok);
             logokfrissitese();
         }
@@ -97,7 +89,7 @@ namespace bakilv_bankapp
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
             JsonFrissites.JsonFrissitese(Users.felhasznalok);
-            transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, -osszegdouble, DateTime.Now.ToString()));
+            transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, -osszegdouble, DateTime.Now.ToString(), felhasznalo.egyenleg));
             JsonFrissites.JsonFrissiteseTransaction(transaction.tranzakciok);
             logokfrissitese();
         }
@@ -111,7 +103,7 @@ namespace bakilv_bankapp
             {
                 if (elem != null && elem.felhasznaloid == felhasznalo.id)
                 {
-                    tranzakciolog.Items.Add($"ID: {elem.id} | Változás: {elem.valtozas:N0} Ft | Dátum: {elem.date}");
+                    tranzakciolog.Items.Add($"Változás: {elem.valtozas:N0} Ft | Dátum: {elem.date} | Egyenleg: {elem.egyenleg:N0} Ft");
                 }
             }
         }
