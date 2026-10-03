@@ -49,10 +49,10 @@ namespace bakilv_bankapp
         public int felhasznaloid { get; set; }
         public double valtozas { get; set; }
         public string date { get; set; }
-        public transaction(int id, int userId, double valtozas, string date)
+        public transaction(int id, int felhasznaloid, double valtozas, string date)
         {
             this.id = id;
-            this.felhasznaloid = userId;
+            this.felhasznaloid = felhasznaloid;
             this.valtozas = valtozas;
             this.date = date;
         }
