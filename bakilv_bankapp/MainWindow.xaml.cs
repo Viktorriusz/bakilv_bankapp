@@ -32,6 +32,15 @@ namespace bakilv_bankapp
             udvlabel.Content = nev;
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
+            tranzakciolog.Items.Clear();
+
+            foreach (var elem in transaction.tranzakciok)
+            {
+                if (elem != null && elem.felhasznaloid == felhasznalo.id)
+                {
+                    tranzakciolog.Items.Add($"ID: {elem.id} | Változás: {elem.valtozas:N0} Ft | Dátum: {elem.date}");
+                }
+            }
         }
 
         private void penzfeltoltes(object sender, RoutedEventArgs e)
@@ -58,6 +67,7 @@ namespace bakilv_bankapp
             JsonFrissites.JsonFrissitese(Users.felhasznalok);
             transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, osszegdouble, DateTime.Now.ToString()));
             JsonFrissites.JsonFrissiteseTransaction(transaction.tranzakciok);
+            logokfrissitese();
         }
 
         private void penzlevetel(object sender, RoutedEventArgs e)
@@ -89,14 +99,12 @@ namespace bakilv_bankapp
             JsonFrissites.JsonFrissitese(Users.felhasznalok);
             transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, -osszegdouble, DateTime.Now.ToString()));
             JsonFrissites.JsonFrissiteseTransaction(transaction.tranzakciok);
+            logokfrissitese();
         }
 
-        private void tranzactionlogfugveny(object sender, RoutedEventArgs e)
+        private void logokfrissitese()
         {
-            if (tranzakciolog == null) return;
-            if (felhasznalo == null) return;
-            if (transaction.tranzakciok == null) return;
-
+            transaction.JsonBeolvasasTransaction();
             tranzakciolog.Items.Clear();
 
             foreach (var elem in transaction.tranzakciok)
