@@ -6,26 +6,147 @@
         xmlns:local="clr-namespace:bakilv_bankapp"
         mc:Ignorable="d"
         Title="Crack Bank - Bejelentkezés"
-        Height="300"
-        Width="400">
+        Height="500"
+        Width="850"
+        WindowStartupLocation="CenterScreen"
+        Background="#0B1220"
+        WindowStyle="None"
+        ResizeMode="NoResize">
+    <!-- DESIGN AI ÁLTAL KÉSZÍTETT-->
     <Grid>
-        <StackPanel
-            Width="250"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#07101F" Offset="0"/>
+                <GradientStop Color="#0D1B31" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
 
-            <TextBlock Text="Név"/>
-            <TextBox x:Name="NameBox"
-                     Margin="0,5,0,15"/>
 
-            <TextBlock Text="Jelszó"/>
-            <PasswordBox x:Name="PasswordBox"
-                         Margin="0,5,0,20"/>
+        <Border Width="430"
+                Padding="45"
+                Background="#111C2E"
+                CornerRadius="18"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
 
-            <Button x:Name="bejelentkezes" Content="Bejelentkezés"
-                    Height="35"
-                    Click="LoginButton_Click"/>
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="25"
+                    ShadowDepth="0"
+                    Opacity="0.45"/>
+            </Border.Effect>
 
-        </StackPanel>
+
+            <StackPanel>
+
+                <TextBlock Text="CRACK BANK"
+                           Foreground="#4DA3FF"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,5"/>
+
+                <TextBlock Text="Bejelentkezés"
+                           Foreground="#E8EEF7"
+                           FontSize="21"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,35"/>
+
+
+                <TextBlock Text="Felhasználónév"
+                           Foreground="#AAB7CA"
+                           FontSize="13"
+                           Margin="0,0,0,7"/>
+
+                <Border Background="#0B1525"
+                        CornerRadius="8"
+                        Height="45"
+                        Margin="0,0,0,20">
+
+                    <TextBox x:Name="NameBox"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Foreground="White"
+                             FontSize="14"
+                             Padding="12,0"
+                             VerticalContentAlignment="Center"/>
+                </Border>
+
+
+                <TextBlock Text="Jelszó"
+                           Foreground="#AAB7CA"
+                           FontSize="13"
+                           Margin="0,0,0,7"/>
+
+                <Border Background="#0B1525"
+                        CornerRadius="8"
+                        Height="45"
+                        Margin="0,0,0,30">
+
+                    <PasswordBox x:Name="PasswordBox"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 Foreground="White"
+                                 FontSize="14"
+                                 Padding="12,0"
+                                 VerticalContentAlignment="Center"/>
+                </Border>
+
+
+                <Button x:Name="bejelentkezes"
+                        Content="BEJELENTKEZÉS"
+                        Height="48"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Foreground="White"
+                        Background="#1677E8"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Click="LoginButton_Click">
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                    CornerRadius="8">
+
+                                <ContentPresenter
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#1677E8"/>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background"
+                                            Value="#2688F5"/>
+                                </Trigger>
+
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background"
+                                            Value="#0D5FBE"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                </Button>
+
+
+                <TextBlock Text="Biztonságos banki hozzáférés"
+                           Foreground="#68778D"
+                           FontSize="11"
+                           HorizontalAlignment="Center"
+                           Margin="0,25,0,0"/>
+
+            </StackPanel>
+
+        </Border>
+
     </Grid>
 </Window>

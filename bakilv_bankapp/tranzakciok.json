@@ -124,5 +124,117 @@
     "valtozas": -60000,
     "date": "2026. 10. 03. 15:55:59",
     "egyenleg": 1323600000
+  },
+  {
+    "id": 19,
+    "felhasznaloid": 1,
+    "valtozas": -50000,
+    "date": "2026. 10. 07. 16:58:59",
+    "egyenleg": 1323550000
+  },
+  {
+    "id": 20,
+    "felhasznaloid": 1,
+    "valtozas": -50000,
+    "date": "2026. 10. 07. 16:59:00",
+    "egyenleg": 1323500000
+  },
+  {
+    "id": 21,
+    "felhasznaloid": 1,
+    "valtozas": -50000,
+    "date": "2026. 10. 07. 16:59:01",
+    "egyenleg": 1323450000
+  },
+  {
+    "id": 22,
+    "felhasznaloid": 1,
+    "valtozas": 50000,
+    "date": "2026. 10. 07. 16:59:02",
+    "egyenleg": 1323500000
+  },
+  {
+    "id": 23,
+    "felhasznaloid": 1,
+    "valtozas": 50000,
+    "date": "2026. 10. 07. 16:59:02",
+    "egyenleg": 1323550000
+  },
+  {
+    "id": 24,
+    "felhasznaloid": 1,
+    "valtozas": 50000,
+    "date": "2026. 10. 07. 16:59:03",
+    "egyenleg": 1323600000
+  },
+  {
+    "id": 25,
+    "felhasznaloid": 1,
+    "valtozas": 50000,
+    "date": "2026. 10. 07. 16:59:03",
+    "egyenleg": 1323650000
+  },
+  {
+    "id": 26,
+    "felhasznaloid": 1,
+    "valtozas": 50000,
+    "date": "2026. 10. 07. 16:59:05",
+    "egyenleg": 1323700000
+  },
+  {
+    "id": 27,
+    "felhasznaloid": 1,
+    "valtozas": 50000,
+    "date": "2026. 10. 07. 16:59:05",
+    "egyenleg": 1323750000
+  },
+  {
+    "id": 28,
+    "felhasznaloid": 1,
+    "valtozas": 50000,
+    "date": "2026. 10. 07. 16:59:07",
+    "egyenleg": 1323800000
+  },
+  {
+    "id": 29,
+    "felhasznaloid": 1,
+    "valtozas": -50000,
+    "date": "2026. 10. 07. 16:59:10",
+    "egyenleg": 1323750000
+  },
+  {
+    "id": 30,
+    "felhasznaloid": 1,
+    "valtozas": -50000,
+    "date": "2026. 10. 07. 17:07:58",
+    "egyenleg": 1323700000
+  },
+  {
+    "id": 31,
+    "felhasznaloid": 1,
+    "valtozas": 50000,
+    "date": "2026. 10. 07. 17:07:59",
+    "egyenleg": 1323750000
+  },
+  {
+    "id": 32,
+    "felhasznaloid": 1,
+    "valtozas": 50000,
+    "date": "2026. 10. 07. 17:08:00",
+    "egyenleg": 1323800000
+  },
+  {
+    "id": 33,
+    "felhasznaloid": 1,
+    "valtozas": 50000,
+    "date": "2026. 10. 07. 17:08:00",
+    "egyenleg": 1323850000
+  },
+  {
+    "id": 34,
+    "felhasznaloid": 1,
+    "valtozas": -50000,
+    "date": "2026. 10. 07. 17:08:02",
+    "egyenleg": 1323800000
   }
 ]

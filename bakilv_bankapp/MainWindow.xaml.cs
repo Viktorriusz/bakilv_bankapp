@@ -29,7 +29,7 @@ namespace bakilv_bankapp
 
             felhasznalo = user;
             string nev = $" Üdv, {felhasznalo.name}";
-            udvlabel.Content = nev;
+            udvlabel.Text = nev;
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
             logokfrissitese();
