@@ -14,13 +14,13 @@ namespace bakilv_bankapp
     {
         public static void JsonFrissitese(List<user> felhasznalok)
         {
-            string fajl = "C:\\Users\\Viktor\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\felhasznalok.json";
+            string fajl = "C:\\Users\\bakilv\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\felhasznalok.json";
             string json = JsonSerializer.Serialize(felhasznalok, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(fajl, json);
         }
         public static void JsonFrissiteseTransaction(List<transaction> tranzakciok)
         {
-            string fajl = "C:\\Users\\Viktor\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\tranzakciok.json";
+            string fajl = "C:\\Users\\bakilv\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\tranzakciok.json";
             string json = JsonSerializer.Serialize(tranzakciok, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(fajl, json);
         }
@@ -62,7 +62,7 @@ namespace bakilv_bankapp
 
         public static List<transaction> JsonBeolvasasTransaction()
         {
-            string fajl = "C:\\Users\\Viktor\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\tranzakciok.json";
+            string fajl = "C:\\Users\\bakilv\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\tranzakciok.json";
             string json = File.ReadAllText(fajl);
             List<transaction> tranzakciok = JsonSerializer.Deserialize<List<transaction>>(json);
             return tranzakciok;
@@ -73,7 +73,7 @@ namespace bakilv_bankapp
         {
             public static List<user> JsonBeolvasas()
             {
-                string fajl = "C:\\Users\\Viktor\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\felhasznalok.json";
+                string fajl = "C:\\Users\\bakilv\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\felhasznalok.json";
 
                 string json = File.ReadAllText(fajl);
 

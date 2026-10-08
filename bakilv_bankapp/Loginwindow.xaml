@@ -138,11 +138,11 @@
                 </Button>
 
 
-                <TextBlock Text="Biztonságos banki hozzáférés"
-                           Foreground="#68778D"
+                <Button Content="Biztonságos banki hozzáférés"
+                           Background="#68778D"
                            FontSize="11"
                            HorizontalAlignment="Center"
-                           Margin="0,25,0,0"/>
+                           Margin="0,25,0,0" Click="fiokletrehozfugveny"/>
 
             </StackPanel>
 

@@ -63,5 +63,11 @@ namespace bakilv_bankapp
                 }
         }
 
+        private void fiokletrehozfugveny(object sender, RoutedEventArgs e)
+        {
+            fiokletrehozas fiokletrehoz = new fiokletrehozas();
+            fiokletrehoz.Show();
+            this.Close();
+        }
     }
 }

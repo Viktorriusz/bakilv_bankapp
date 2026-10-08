@@ -1,0 +1,16 @@
+﻿<Window x:Class="bakilv_bankapp.fiokletrehozas"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bakilv_bankapp"
+        mc:Ignorable="d"
+        Title="fiokletrehozas" Height="450" Width="800">
+    <Grid>
+        <Label Content="Fiók létrehozás" HorizontalAlignment="Left" Margin="328,50,0,0" VerticalAlignment="Top" Width="107"/>
+        <TextBox x:Name="nevmezo" HorizontalAlignment="Left" Margin="322,125,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="jelszomezo" HorizontalAlignment="Left" Margin="322,199,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Regisztrálás" HorizontalAlignment="Left" Margin="360,291,0,0" VerticalAlignment="Top" Click="regisztracioclick"/>
+
+    </Grid>
+</Window>
