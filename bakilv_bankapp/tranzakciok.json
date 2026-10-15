@@ -5,5 +5,19 @@
     "valtozas": 50000,
     "date": "2026. 10. 08. 10:08:27",
     "egyenleg": 50000
+  },
+  {
+    "id": 2,
+    "felhasznaloid": 2,
+    "valtozas": 5000,
+    "date": "2026. 10. 15. 7:55:05",
+    "egyenleg": 5000
+  },
+  {
+    "id": 3,
+    "felhasznaloid": 2,
+    "valtozas": 5000,
+    "date": "2026. 10. 15. 7:55:06",
+    "egyenleg": 10000
   }
 ]

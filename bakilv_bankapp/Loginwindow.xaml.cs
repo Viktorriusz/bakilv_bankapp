@@ -39,10 +39,13 @@ namespace bakilv_bankapp
                     return;
                 }
                 else
-                    {
-                    MessageBox.Show("Hibás felhasználónév vagy jelszó!");
-                    continue;
+                {
+                    sikeres = false;
                 }
+            }
+            if (!sikeres)
+            {
+                MessageBox.Show("Hibás felhasználónév vagy jelszó!");
             }
         }
 

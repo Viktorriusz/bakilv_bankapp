@@ -138,7 +138,7 @@
                 </Button>
 
 
-                <Button Content="Biztonságos banki hozzáférés"
+                <Button Content="Fiók létrehozás"
                            Background="#68778D"
                            FontSize="11"
                            HorizontalAlignment="Center"
