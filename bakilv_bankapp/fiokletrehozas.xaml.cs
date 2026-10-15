@@ -29,7 +29,7 @@ namespace bakilv_bankapp
         private void regisztracioclick(object sender, RoutedEventArgs e)
         {
             string felhasznalonev = nevmezo.Text;
-            string jelszo = jelszomezo.Text;
+            string jelszo = jelszomezo.Password;
             for (int i = 0; i < Users.felhasznalok.Count; i++)
             {
                 if (Users.felhasznalok[i].name == felhasznalonev)

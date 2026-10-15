@@ -10,5 +10,11 @@
     "name": "bakilevente",
     "egyenleg": 10000,
     "password": "zrhEfMSreNLsNM2fEeS\u002B0g=="
+  },
+  {
+    "id": 3,
+    "name": "lakatos_brendon",
+    "egyenleg": 0,
+    "password": "4EadEpfQI2XElAljcEraeQ=="
   }
 ]

@@ -5,12 +5,81 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bakilv_bankapp"
         mc:Ignorable="d"
-        Title="fiokletrehozas" Height="450" Width="800">
+        Title="fiokletrehozas" Height="450" Width="800"
+        Background="#0B1320"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        <Label Content="Fiók létrehozás" HorizontalAlignment="Left" Margin="328,50,0,0" VerticalAlignment="Top" Width="107"/>
-        <TextBox x:Name="nevmezo" HorizontalAlignment="Left" Margin="322,125,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="jelszomezo" HorizontalAlignment="Left" Margin="322,199,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Regisztrálás" HorizontalAlignment="Left" Margin="360,291,0,0" VerticalAlignment="Top" Click="regisztracioclick"/>
+        <!--AI DESIGN-->
+        <Border Width="380" Height="360"
+                Background="#111B2B"
+                BorderBrush="#25426B"
+                BorderThickness="1"
+                CornerRadius="6"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
 
+            <StackPanel Margin="30,20,30,20" VerticalAlignment="Center">
+                <!-- Cím és alcím -->
+                <TextBlock Text="CRACK BANK" 
+                           Foreground="#1E88E5" 
+                           FontSize="22" 
+                           FontWeight="Bold" 
+                           HorizontalAlignment="Center"/>
+
+                <Label x:Name="CimLabel"
+                       Content="Fiók létrehozás" 
+                       Foreground="White" 
+                       FontSize="18" 
+                       FontWeight="SemiBold" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,5,0,20"/>
+
+                <!-- Felhasználónév mező -->
+                <TextBlock Text="Felhasználónév" 
+                           Foreground="#8C9DAE" 
+                           FontSize="12" 
+                           Margin="0,0,0,5"/>
+                <Border Background="#090F18" CornerRadius="6" Height="38" Margin="0,0,0,15">
+                    <TextBox x:Name="nevmezo" 
+                             Background="Transparent" 
+                             Foreground="White" 
+                             BorderThickness="0" 
+                             VerticalAlignment="Center" 
+                             Padding="10,0,10,0" 
+                             FontSize="14"/>
+                </Border>
+
+                <!-- Jelszó mező -->
+                <TextBlock Text="Jelszó" 
+                           Foreground="#8C9DAE" 
+                           FontSize="12" 
+                           Margin="0,0,0,5"/>
+                <Border Background="#090F18" CornerRadius="6" Height="38" Margin="0,0,0,25">
+                    <PasswordBox x:Name="jelszomezo"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Foreground="White"
+                                FontSize="14"
+                                Padding="12,0"
+                                VerticalContentAlignment="Center"/>
+                </Border>
+
+                <!-- Regisztráció gomb -->
+                <Button Content="Regisztrálás" 
+                        Click="regisztracioclick" 
+                        Height="40" 
+                        Background="#1E88E5" 
+                        Foreground="White" 
+                        FontSize="13" 
+                        FontWeight="Bold" 
+                        Cursor="Hand">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
