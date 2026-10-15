@@ -52,7 +52,8 @@ namespace bakilv_bankapp
         public Loginwindow()
             {
                 InitializeComponent();
-            }
+                sqllekerdezeesek.sqlkapcsolatesadatlehivas();
+        }
 
             private void LoginButton_Click(object sender, RoutedEventArgs e)
             {

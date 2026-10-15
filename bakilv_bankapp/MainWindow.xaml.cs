@@ -57,7 +57,8 @@ namespace bakilv_bankapp
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
             JsonFrissites.JsonFrissitese(Users.felhasznalok);
-            transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, osszegdouble, DateTime.Now.ToString(), felhasznalo.egyenleg));
+            transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, osszegdouble, DateTime.Now, felhasznalo.egyenleg));
+            sqllekerdezeesek.sqlkapcsolatfrissites();
             JsonFrissites.JsonFrissiteseTransaction(transaction.tranzakciok);
             logokfrissitese();
         }
@@ -89,21 +90,21 @@ namespace bakilv_bankapp
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
             JsonFrissites.JsonFrissitese(Users.felhasznalok);
-            transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, -osszegdouble, DateTime.Now.ToString(), felhasznalo.egyenleg));
+            transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, -osszegdouble, DateTime.Now, felhasznalo.egyenleg));
+            sqllekerdezeesek.sqlkapcsolatfrissites();
             JsonFrissites.JsonFrissiteseTransaction(transaction.tranzakciok);
             logokfrissitese();
         }
 
         private void logokfrissitese()
         {
-            transaction.JsonBeolvasasTransaction();
             tranzakciolog.Items.Clear();
 
             foreach (var elem in transaction.tranzakciok)
             {
                 if (elem != null && elem.felhasznaloid == felhasznalo.id)
                 {
-                    tranzakciolog.Items.Add($"Változás: {elem.valtozas:N0} Ft | Dátum: {elem.date} | Egyenleg: {elem.egyenleg:N0} Ft");
+                    tranzakciolog.Items.Add($"Változás: {elem.valtozas:N0} Ft | Dátum: {elem.date.ToString()} | Egyenleg: {elem.egyenleg:N0} Ft");
                 }
             }
         }

@@ -51,6 +51,7 @@ namespace bakilv_bankapp
             {
                 byte[] hash = MD5.HashData(Encoding.UTF8.GetBytes(jelszo));
                 Users.felhasznalok.Add(new user(Users.felhasznalok.Count + 1, felhasznalonev, 0, Convert.ToBase64String(hash)));
+                sqllekerdezeesek.sqlkapcsolatfrissites();
                 JsonFrissites.JsonFrissitese(Users.felhasznalok);
                 MessageBox.Show("Sikeres regisztráció!");
                 Loginwindow visszaloginba = new Loginwindow();
