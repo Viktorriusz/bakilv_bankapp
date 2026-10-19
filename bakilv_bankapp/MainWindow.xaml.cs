@@ -58,7 +58,7 @@ namespace bakilv_bankapp
             egyenleglabel.Content = penze;
             JsonFrissites.JsonFrissitese(Users.felhasznalok);
             transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, osszegdouble, DateTime.Now, felhasznalo.egyenleg));
-            sqllekerdezeesek.sqlkapcsolatfrissites();
+            sqllekerdezeesek.ujtranzakciohozzaadasa(transaction.tranzakciok.Last());
             JsonFrissites.JsonFrissiteseTransaction(transaction.tranzakciok);
             logokfrissitese();
         }
@@ -91,7 +91,7 @@ namespace bakilv_bankapp
             egyenleglabel.Content = penze;
             JsonFrissites.JsonFrissitese(Users.felhasznalok);
             transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count + 1, felhasznalo.id, -osszegdouble, DateTime.Now, felhasznalo.egyenleg));
-            sqllekerdezeesek.sqlkapcsolatfrissites();
+            sqllekerdezeesek.ujtranzakciohozzaadasa(transaction.tranzakciok.Last());
             JsonFrissites.JsonFrissiteseTransaction(transaction.tranzakciok);
             logokfrissitese();
         }

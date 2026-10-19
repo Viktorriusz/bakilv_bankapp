@@ -13,117 +13,147 @@ using MySql.Data.MySqlClient;
 namespace bakilv_bankapp
 {
 
-        public static class sqllekerdezeesek
+    public static class sqllekerdezeesek
+    {
+        private static string connection = "server=localhost;user=root;password=;database=crackbank;Convert Zero Datetime=True;";
+
+        public static void sqlkapcsolatesadatlehivas()
         {
-            private static string connection = "server=localhost;user=root;password=;database=crackbank;Convert Zero Datetime=True;";
+            Users.felhasznalok.Clear();
+            transaction.tranzakciok.Clear();
 
-            public static void sqlkapcsolatesadatlehivas()
+            using (var conn = new MySqlConnection(connection))
             {
-                Users.felhasznalok.Clear();
-                transaction.tranzakciok.Clear();
+                conn.Open();
 
-                using (var conn = new MySqlConnection(connection))
+
+                using (var cmd = new MySqlCommand("SELECT * FROM felhasznalok", conn))
+                using (var reader = cmd.ExecuteReader())
                 {
-                    conn.Open();
-
-
-                    using (var cmd = new MySqlCommand("SELECT * FROM felhasznalok", conn))
-                    using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            int id = reader.GetInt32("id");
-                            string name = reader.GetString("name");
-                            double egyenleg = reader.GetDouble("egyenleg");
-                            string password = reader.GetString("password");
+                        int id = reader.GetInt32("id");
+                        string name = reader.GetString("name");
+                        double egyenleg = reader.GetDouble("egyenleg");
+                        string password = reader.GetString("password");
 
-                            Users.felhasznalok.Add(new user(id, name, egyenleg, password));
-                        }
+                        Users.felhasznalok.Add(new user(id, name, egyenleg, password));
                     }
+                }
 
- 
-                    using (var cmd2 = new MySqlCommand("SELECT * FROM tranzakciok", conn))
-                    using (var reader2 = cmd2.ExecuteReader())
+
+                using (var cmd2 = new MySqlCommand("SELECT * FROM tranzakciok", conn))
+                using (var reader2 = cmd2.ExecuteReader())
+                {
+                    while (reader2.Read())
                     {
-                        while (reader2.Read())
+                        int id = reader2.GetInt32("id");
+                        int felhasznaloid = reader2.GetInt32("felhasznaloid");
+                        double valtozas = reader2.GetDouble("valtozas");
+                        double egyenleg = reader2.GetDouble("egyenleg");
+
+
+                        DateTime date = DateTime.Now;
+                        int dateOrdinal = reader2.GetOrdinal("date");
+
+                        if (!reader2.IsDBNull(dateOrdinal))
                         {
-                            int id = reader2.GetInt32("id");
-                            int felhasznaloid = reader2.GetInt32("felhasznaloid");
-                            double valtozas = reader2.GetDouble("valtozas");
-                            double egyenleg = reader2.GetDouble("egyenleg");
-
-
-                            DateTime date = DateTime.Now;
-                            int dateOrdinal = reader2.GetOrdinal("date");
-
-                            if (!reader2.IsDBNull(dateOrdinal))
+                            try
                             {
-                                try
-                                {
-                                    date = reader2.GetDateTime(dateOrdinal);
-                                }
-                                catch
-                                {
-                                    string dateStr = reader2.GetValue(dateOrdinal).ToString();
-                                    DateTime.TryParse(dateStr, out date);
-                                }
+                                date = reader2.GetDateTime(dateOrdinal);
                             }
-
-                            transaction.tranzakciok.Add(new transaction(id, felhasznaloid, valtozas, date, egyenleg));
+                            catch
+                            {
+                                string dateStr = reader2.GetValue(dateOrdinal).ToString();
+                                DateTime.TryParse(dateStr, out date);
+                            }
                         }
-                    }
-                }
-            }
 
-            public static void sqlkapcsolatfrissites()
-            {
-                using (var conn = new MySqlConnection(connection))
-                {
-                    conn.Open();
-
-
-                    using (var cmd = new MySqlCommand("DELETE FROM felhasznalok", conn))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-
-                foreach (var felhasznalo in Users.felhasznalok)
-                {
-                    using (var cmd2 = new MySqlCommand("INSERT INTO felhasznalok (id, name, egyenleg, password) VALUES (@id, @name, @egyenleg, @password)", conn))
-                    {
-                        cmd2.Parameters.AddWithValue("@id", felhasznalo.id);
-                        cmd2.Parameters.AddWithValue("@name", felhasznalo.name);
-
-                        // Explicit típus megadása, vagy decimal-ra konvertálás
-                        cmd2.Parameters.Add("@egyenleg", MySqlDbType.Double).Value = felhasznalo.egyenleg;
-
-                        cmd2.Parameters.AddWithValue("@password", felhasznalo.password);
-                        cmd2.ExecuteNonQuery();
-                    }
-                }
-
-
-                using (var cmd3 = new MySqlCommand("DELETE FROM tranzakciok", conn))
-                    {
-                        cmd3.ExecuteNonQuery();
-                    }
-
-                    foreach (var tranzakcio in transaction.tranzakciok)
-                    {
-                        using (var cmd4 = new MySqlCommand("INSERT INTO tranzakciok (id, felhasznaloid, valtozas, date, egyenleg) VALUES (@id, @felhasznaloid, @valtozas, @date, @egyenleg)", conn))
-                        {
-                            cmd4.Parameters.AddWithValue("@id", tranzakcio.id);
-                            cmd4.Parameters.AddWithValue("@felhasznaloid", tranzakcio.felhasznaloid);
-                            cmd4.Parameters.AddWithValue("@valtozas", tranzakcio.valtozas);
-                            cmd4.Parameters.AddWithValue("@date", tranzakcio.date);
-                            cmd4.Parameters.AddWithValue("@egyenleg", tranzakcio.egyenleg);
-                            cmd4.ExecuteNonQuery();
-                        }
+                        transaction.tranzakciok.Add(new transaction(id, felhasznaloid, valtozas, date, egyenleg));
                     }
                 }
             }
         }
-        static class JsonFrissites
+
+        //public static void sqlkapcsolatfrissites()
+        //{
+        //    using (var conn = new MySqlConnection(connection))
+        //    {
+        //        conn.Open();
+
+
+        //        using (var cmd = new MySqlCommand("DELETE FROM felhasznalok", conn))
+        //        {
+        //            cmd.ExecuteNonQuery();
+        //        }
+
+        //        foreach (var felhasznalo in Users.felhasznalok)
+        //        {
+        //            using (var cmd2 = new MySqlCommand("INSERT INTO felhasznalok (id, name, egyenleg, password) VALUES (@id, @name, @egyenleg, @password)", conn))
+        //            {
+        //                cmd2.Parameters.AddWithValue("@id", felhasznalo.id);
+        //                cmd2.Parameters.AddWithValue("@name", felhasznalo.name);
+
+        //                cmd2.Parameters.Add("@egyenleg", MySqlDbType.Double).Value = felhasznalo.egyenleg;
+
+        //                cmd2.Parameters.AddWithValue("@password", felhasznalo.password);
+        //                cmd2.ExecuteNonQuery();
+        //            }
+        //        }
+
+
+        //        using (var cmd3 = new MySqlCommand("DELETE FROM tranzakciok", conn))
+        //        {
+        //            cmd3.ExecuteNonQuery();
+        //        }
+
+        //        foreach (var tranzakcio in transaction.tranzakciok)
+        //        {
+        //            using (var cmd4 = new MySqlCommand("INSERT INTO tranzakciok (id, felhasznaloid, valtozas, date, egyenleg) VALUES (@id, @felhasznaloid, @valtozas, @date, @egyenleg)", conn))
+        //            {
+        //                cmd4.Parameters.AddWithValue("@id", tranzakcio.id);
+        //                cmd4.Parameters.AddWithValue("@felhasznaloid", tranzakcio.felhasznaloid);
+        //                cmd4.Parameters.AddWithValue("@valtozas", tranzakcio.valtozas);
+        //                cmd4.Parameters.AddWithValue("@date", tranzakcio.date);
+        //                cmd4.Parameters.AddWithValue("@egyenleg", tranzakcio.egyenleg);
+        //                cmd4.ExecuteNonQuery();
+        //            }
+        //        }
+        //    }
+        //}
+        public static void ujfelhasznalohozzaadasa(user felhasznalo)
+        {
+            using (var conn = new MySqlConnection(connection))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("INSERT INTO felhasznalok (id, name, egyenleg, password) VALUES (@id, @name, @egyenleg, @password)", conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", felhasznalo.id);
+                    cmd.Parameters.AddWithValue("@name", felhasznalo.name);
+                    cmd.Parameters.Add("@egyenleg", MySqlDbType.Double).Value = felhasznalo.egyenleg;
+                    cmd.Parameters.AddWithValue("@password", felhasznalo.password);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void ujtranzakciohozzaadasa(transaction tranzakcio)
+        {
+            using (var conn = new MySqlConnection(connection))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("INSERT INTO tranzakciok (id, felhasznaloid, valtozas, date, egyenleg) VALUES (@id, @felhasznaloid, @valtozas, @date, @egyenleg)", conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", tranzakcio.id);
+                    cmd.Parameters.AddWithValue("@felhasznaloid", tranzakcio.felhasznaloid);
+                    cmd.Parameters.AddWithValue("@valtozas", tranzakcio.valtozas);
+                    cmd.Parameters.AddWithValue("@date", tranzakcio.date);
+                    cmd.Parameters.AddWithValue("@egyenleg", tranzakcio.egyenleg);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+    }
+        public static class JsonFrissites
     {
         public static void JsonFrissitese(List<user> felhasznalok)
         {
