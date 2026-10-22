@@ -139,9 +139,8 @@ namespace bakilv_bankapp
             using (var conn = new MySqlConnection(connection))
             {
                 conn.Open();
-                using (var cmd = new MySqlCommand("INSERT INTO felhasznalok (id, name, egyenleg, password) VALUES (@id, @name, @egyenleg, @password)", conn))
+                using (var cmd = new MySqlCommand("INSERT INTO felhasznalok (name, egyenleg, password) VALUES (@name, @egyenleg, @password)", conn))
                 {
-                    cmd.Parameters.AddWithValue("@id", felhasznalo.id);
                     cmd.Parameters.AddWithValue("@name", felhasznalo.name);
                     cmd.Parameters.Add("@egyenleg", MySqlDbType.Double).Value = felhasznalo.egyenleg;
                     cmd.Parameters.AddWithValue("@password", felhasznalo.password);
@@ -154,9 +153,8 @@ namespace bakilv_bankapp
             using (var conn = new MySqlConnection(connection))
             {
                 conn.Open();
-                using (var cmd = new MySqlCommand("INSERT INTO tranzakciok (id, felhasznaloid, valtozas, date, egyenleg) VALUES (@id, @felhasznaloid, @valtozas, @date, @egyenleg)", conn))
+                using (var cmd = new MySqlCommand("INSERT INTO tranzakciok (felhasznaloid, valtozas, date, egyenleg) VALUES (@felhasznaloid, @valtozas, @date, @egyenleg)", conn))
                 {
-                    cmd.Parameters.AddWithValue("@id", tranzakcio.id);
                     cmd.Parameters.AddWithValue("@felhasznaloid", tranzakcio.felhasznaloid);
                     cmd.Parameters.AddWithValue("@valtozas", tranzakcio.valtozas);
                     cmd.Parameters.AddWithValue("@date", tranzakcio.date);
@@ -165,21 +163,6 @@ namespace bakilv_bankapp
                 }
                 
             }
-        }
-    }
-        public static class JsonFrissites
-    {
-        public static void JsonFrissitese(List<user> felhasznalok)
-        {
-            string fajl = "C:\\Users\\bakilv\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\felhasznalok.json";
-            string json = JsonSerializer.Serialize(felhasznalok, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(fajl, json);
-        }
-        public static void JsonFrissiteseTransaction(List<transaction> tranzakciok)
-        {
-            string fajl = "C:\\Users\\bakilv\\source\\repos\\Viktorriusz\\bakilv_bankapp\\bakilv_bankapp\\tranzakciok.json";
-            string json = JsonSerializer.Serialize(tranzakciok, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(fajl, json);
         }
     }
 
@@ -208,6 +191,13 @@ namespace bakilv_bankapp
         public DateTime date { get; set; }
         
         public double egyenleg { get; set; }
+        public transaction(int felhasznaloid, double valtozas, DateTime date, double egyenleg)
+        {
+            this.felhasznaloid = felhasznaloid;
+            this.valtozas = valtozas;
+            this.date = date;
+            this.egyenleg = egyenleg;
+        }
         public transaction(int id, int felhasznaloid, double valtozas, DateTime date, double egyenleg)
         {
             this.id = id;
@@ -226,6 +216,7 @@ namespace bakilv_bankapp
         //}
         public static List<transaction> tranzakciok = new List<transaction>();
 
+
        
     }
     public class utalas
@@ -238,6 +229,16 @@ namespace bakilv_bankapp
         public double felh1egyenleg { get; set; }
 
         public double felh2egyenleg { get; set; }
+
+        public utalas(int felhasznaloid1, int felhasznaloid2, double osszeg, DateTime datum, double felh1egyenleg, double felh2egyenleg)
+        {
+            this.felhasznaloid1 = felhasznaloid1;
+            this.felhasznaloid2 = felhasznaloid2;
+            this.osszeg = osszeg;
+            this.datum = datum;
+            this.felh1egyenleg = felh1egyenleg;
+            this.felh2egyenleg = felh2egyenleg;
+        }
 
         public utalas(int id, int felhasznaloid1, int felhasznaloid2, double osszeg, DateTime datum, double felh1egyenleg, double felh2egyenleg)
         {
@@ -280,9 +281,8 @@ namespace bakilv_bankapp
             var conn = new MySqlConnection("server=localhost;user=root;password=;database=crackbank;Convert Zero Datetime=True;");
             {
                 conn.Open();
-                using (var cmd = new MySqlCommand("INSERT INTO utalasok (id, felhasznaloid1, felhasznaloid2, osszeg, datum,felh1egyenleg,felh2egyenleg) VALUES (@id, @felhasznaloid1, @felhasznaloid2, @osszeg, @datum,@felh1egyenleg,@felh2egyenleg)", conn))
+                using (var cmd = new MySqlCommand("INSERT INTO utalasok (felhasznaloid1, felhasznaloid2, osszeg, datum,felh1egyenleg,felh2egyenleg) VALUES (@felhasznaloid1, @felhasznaloid2, @osszeg, @datum,@felh1egyenleg,@felh2egyenleg)", conn))
                 {
-                    cmd.Parameters.AddWithValue("@id", utalas.id);
                     cmd.Parameters.AddWithValue("@felhasznaloid1", utalas.felhasznaloid1);
                     cmd.Parameters.AddWithValue("@felhasznaloid2", utalas.felhasznaloid2);
                     cmd.Parameters.AddWithValue("@osszeg", utalas.osszeg);
@@ -301,16 +301,15 @@ namespace bakilv_bankapp
             {
                 felhasznalo1.egyenleg -= osszeg;
                 felhasznalo2.egyenleg += osszeg;
-                transaction tranzakcio1 = new transaction(transaction.tranzakciok.Count + 1 , felhasznaloid, -osszeg, DateTime.Now, felhasznalo1.egyenleg);
+                transaction tranzakcio1 = new transaction(felhasznaloid, -osszeg, DateTime.Now, felhasznalo1.egyenleg);
                 transaction.tranzakciok.Add(tranzakcio1);
-                transaction tranzakcio2 = new transaction(transaction.tranzakciok.Count + 1, felhasznaloid2, osszeg, DateTime.Now, felhasznalo2.egyenleg);
+                transaction tranzakcio2 = new transaction(felhasznaloid2, osszeg, DateTime.Now, felhasznalo2.egyenleg);
                 transaction.tranzakciok.Add(tranzakcio2);
-                utalas utalas = new utalas(utalasok.Count , felhasznaloid, felhasznaloid2, osszeg, DateTime.Now, felhasznalo1.egyenleg, felhasznalo2.egyenleg);
+                utalas utalas = new utalas(felhasznaloid, felhasznaloid2, osszeg, DateTime.Now, felhasznalo1.egyenleg, felhasznalo2.egyenleg);
                 utalas.utalashozzadas(utalas);
                 transaction.tranzakciok.Add(tranzakcio2);
                 sqllekerdezeesek.ujtranzakciohozzaadasa(tranzakcio1);
                 sqllekerdezeesek.ujtranzakciohozzaadasa(tranzakcio2);
-                JsonFrissites.JsonFrissitese(Users.felhasznalok);
                 sqllekerdezeesek.egyenlegfrissites(felhasznalo1);
                 sqllekerdezeesek.egyenlegfrissites(felhasznalo2);
 

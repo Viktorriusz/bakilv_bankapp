@@ -56,10 +56,8 @@ namespace bakilv_bankapp
             felhasznalo.egyenleg += osszegdouble;
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
-            JsonFrissites.JsonFrissitese(Users.felhasznalok);
-            transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count, felhasznalo.id, osszegdouble, DateTime.Now, felhasznalo.egyenleg));
+            transaction.tranzakciok.Add(new transaction(felhasznalo.id, osszegdouble, DateTime.Now, felhasznalo.egyenleg));
             sqllekerdezeesek.ujtranzakciohozzaadasa(transaction.tranzakciok.Last());
-            JsonFrissites.JsonFrissiteseTransaction(transaction.tranzakciok);
             sqllekerdezeesek.egyenlegfrissites(felhasznalo);
             logokfrissitese();
         }
@@ -90,10 +88,8 @@ namespace bakilv_bankapp
             felhasznalo.egyenleg -= osszegdouble;
             string penze = $"{felhasznalo.egyenleg:N0} Ft";
             egyenleglabel.Content = penze;
-            JsonFrissites.JsonFrissitese(Users.felhasznalok);
-            transaction.tranzakciok.Add(new transaction(transaction.tranzakciok.Count, felhasznalo.id, -osszegdouble, DateTime.Now, felhasznalo.egyenleg));
+            transaction.tranzakciok.Add(new transaction(felhasznalo.id, -osszegdouble, DateTime.Now, felhasznalo.egyenleg));
             sqllekerdezeesek.ujtranzakciohozzaadasa(transaction.tranzakciok.Last());
-            JsonFrissites.JsonFrissiteseTransaction(transaction.tranzakciok);
             sqllekerdezeesek.egyenlegfrissites(felhasznalo);
             logokfrissitese();
         }
@@ -159,6 +155,7 @@ namespace bakilv_bankapp
             utalas.utalasok.Add(utalas);
             utalas.utalasfugveny(felhasznalo.id, felhasznalo2.id, osszegdouble);
             egyenleglabel.Content = $"{felhasznalo.egyenleg:N0} Ft";
+            logokfrissitese();
 
 
 

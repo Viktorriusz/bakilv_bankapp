@@ -2,13 +2,13 @@
   {
     "id": 1,
     "name": "admin",
-    "egyenleg": 20000,
+    "egyenleg": 25000,
     "password": "gdyb21LQTcIANtvYMT7QVQ=="
   },
   {
     "id": 2,
     "name": "admin2",
-    "egyenleg": 30000,
+    "egyenleg": 25000,
     "password": "gdyb21LQTcIANtvYMT7QVQ=="
   }
 ]
