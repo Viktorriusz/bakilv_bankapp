@@ -7,13 +7,13 @@
         xmlns:local="clr-namespace:bakilv_bankapp"
         mc:Ignorable="d"
         Title="Crack Bank - panel"
-        Height="600"
+        Height="650"
         Width="1000"
         WindowStartupLocation="CenterScreen"
         Background="#08111F"
         WindowStyle="None"
         ResizeMode="NoResize">
-    <Grid>
+    <Grid Margin="0,0,0,-55">
 
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -161,8 +161,29 @@
                                      FontSize="14"
                                      Padding="12,0"
                                      VerticalContentAlignment="Center"/>
+                            
 
                         </Border>
+                        <TextBlock Text="Számlaszám"
+Foreground="#8292A8"
+FontSize="12"
+Margin="0,0,0,5"/>
+
+                        <Border Background="#091321"
+CornerRadius="8"
+Height="42"
+Margin="0,0,0,15">
+
+
+                            <TextBox x:Name="szamlaszam"
+         Background="Transparent"
+         BorderThickness="0"
+         Foreground="White"
+         FontSize="14"
+         Padding="12,0"
+         VerticalContentAlignment="Center"/>
+                        </Border>
+
 
                         <Button x:Name="feltoltes"
                                 Content="＋  Pénz feltöltése"
@@ -219,6 +240,30 @@
                             </Button.Template>
 
                         </Button>
+                        <Button x:Name="utalas"
+Content="↗ Pénz utalása"
+Height="42"
+Margin="0,10,0,0"
+Background="#126BC8"
+Foreground="White"
+BorderThickness="0"
+FontSize="13"
+FontWeight="SemiBold"
+Cursor="Hand"
+Click="penzutalas">
+
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}"
+                CornerRadius="8">
+                                        <ContentPresenter HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
 
                     </StackPanel>
 

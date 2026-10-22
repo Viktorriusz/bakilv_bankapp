@@ -53,6 +53,7 @@ namespace bakilv_bankapp
             {
                 InitializeComponent();
                 sqllekerdezeesek.sqlkapcsolatesadatlehivas();
+                utalas.utalaslekerdezes(utalas.utalasok);
         }
 
             private void LoginButton_Click(object sender, RoutedEventArgs e)

@@ -121,6 +121,19 @@ namespace bakilv_bankapp
         //        }
         //    }
         //}
+        public static void egyenlegfrissites(user felhasznalo)
+        {
+            using (var conn = new MySqlConnection(connection))
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("UPDATE felhasznalok SET egyenleg = @egyenleg WHERE id = @id", conn))
+                {
+                    cmd.Parameters.AddWithValue("@egyenleg", felhasznalo.egyenleg);
+                    cmd.Parameters.AddWithValue("@id", felhasznalo.id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         public static void ujfelhasznalohozzaadasa(user felhasznalo)
         {
             using (var conn = new MySqlConnection(connection))
@@ -150,6 +163,7 @@ namespace bakilv_bankapp
                     cmd.Parameters.AddWithValue("@egyenleg", tranzakcio.egyenleg);
                     cmd.ExecuteNonQuery();
                 }
+                
             }
         }
     }
@@ -211,6 +225,106 @@ namespace bakilv_bankapp
         //    return tranzakciok;
         //}
         public static List<transaction> tranzakciok = new List<transaction>();
+
+       
+    }
+    public class utalas
+    {
+        public int id { get; set; }
+        public int felhasznaloid1 { get; set; }
+        public int felhasznaloid2 { get; set; }
+        public double osszeg { get; set; }
+        public DateTime datum { get; set; }
+        public double felh1egyenleg { get; set; }
+
+        public double felh2egyenleg { get; set; }
+
+        public utalas(int id, int felhasznaloid1, int felhasznaloid2, double osszeg, DateTime datum, double felh1egyenleg, double felh2egyenleg)
+        {
+            this.id = id;
+            this.felhasznaloid1 = felhasznaloid1;
+            this.felhasznaloid2 = felhasznaloid2;
+            this.osszeg = osszeg;
+            this.datum = datum;
+            this.felh1egyenleg = felh1egyenleg;
+            this.felh2egyenleg = felh2egyenleg;
+        }
+
+        public static void utalaslekerdezes(List<utalas> utalasok)
+        {
+            var conn = new MySqlConnection("server=localhost;user=root;password=;database=crackbank;Convert Zero Datetime=True;");
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("SELECT * FROM utalasok", conn))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32("id");
+                        int felhasznaloid1 = reader.GetInt32("felhasznaloid1");
+                        int felhasznaloid2 = reader.GetInt32("felhasznaloid2");
+                        double osszeg = reader.GetDouble("osszeg");
+                        DateTime datum = reader.GetDateTime("datum");
+                        double felh1egyenleg = reader.GetDouble("felh1egyenleg");
+                        double felh2egyenleg = reader.GetDouble("felh2egyenleg");
+                        utalasok.Add(new utalas(id, felhasznaloid1, felhasznaloid2, osszeg, datum, felh1egyenleg, felh2egyenleg));
+                    }
+                }
+                conn.Close();
+            }
+        }
+        public static List<utalas> utalasok = new List<utalas>();
+
+        public static void utalashozzadas(utalas utalas)
+        {
+            var conn = new MySqlConnection("server=localhost;user=root;password=;database=crackbank;Convert Zero Datetime=True;");
+            {
+                conn.Open();
+                using (var cmd = new MySqlCommand("INSERT INTO utalasok (id, felhasznaloid1, felhasznaloid2, osszeg, datum,felh1egyenleg,felh2egyenleg) VALUES (@id, @felhasznaloid1, @felhasznaloid2, @osszeg, @datum,@felh1egyenleg,@felh2egyenleg)", conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", utalas.id);
+                    cmd.Parameters.AddWithValue("@felhasznaloid1", utalas.felhasznaloid1);
+                    cmd.Parameters.AddWithValue("@felhasznaloid2", utalas.felhasznaloid2);
+                    cmd.Parameters.AddWithValue("@osszeg", utalas.osszeg);
+                    cmd.Parameters.AddWithValue("@datum", utalas.datum);
+                    cmd.Parameters.AddWithValue("@felh1egyenleg", utalas.felh1egyenleg);
+                    cmd.Parameters.AddWithValue("@felh2egyenleg", utalas.felh2egyenleg);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public static void utalasfugveny(int felhasznaloid, int felhasznaloid2, double osszeg)
+        {
+            var felhasznalo1 = Users.felhasznalok.FirstOrDefault(f => f.id == felhasznaloid);
+            var felhasznalo2 = Users.felhasznalok.FirstOrDefault(f => f.id == felhasznaloid2);
+            if (felhasznalo1 != null && felhasznalo2 != null && felhasznalo1.egyenleg >= osszeg)
+            {
+                felhasznalo1.egyenleg -= osszeg;
+                felhasznalo2.egyenleg += osszeg;
+                transaction tranzakcio1 = new transaction(transaction.tranzakciok.Count + 1 , felhasznaloid, -osszeg, DateTime.Now, felhasznalo1.egyenleg);
+                transaction.tranzakciok.Add(tranzakcio1);
+                transaction tranzakcio2 = new transaction(transaction.tranzakciok.Count + 1, felhasznaloid2, osszeg, DateTime.Now, felhasznalo2.egyenleg);
+                transaction.tranzakciok.Add(tranzakcio2);
+                utalas utalas = new utalas(utalasok.Count , felhasznaloid, felhasznaloid2, osszeg, DateTime.Now, felhasznalo1.egyenleg, felhasznalo2.egyenleg);
+                utalas.utalashozzadas(utalas);
+                transaction.tranzakciok.Add(tranzakcio2);
+                sqllekerdezeesek.ujtranzakciohozzaadasa(tranzakcio1);
+                sqllekerdezeesek.ujtranzakciohozzaadasa(tranzakcio2);
+                JsonFrissites.JsonFrissitese(Users.felhasznalok);
+                sqllekerdezeesek.egyenlegfrissites(felhasznalo1);
+                sqllekerdezeesek.egyenlegfrissites(felhasznalo2);
+
+                MessageBox.Show($"Sikeres utalás! {osszeg} Ft átutalva {felhasznalo2.name} részére.");
+
+            }
+            else
+            {
+                MessageBox.Show("Sikertelen utalás! Ellenőrizze az egyenleget vagy a felhasználói azonosítókat.");
+            }
+        }
+   
+
+       
     }
         public class Users
         {

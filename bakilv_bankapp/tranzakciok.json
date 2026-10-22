@@ -1,30 +1,9 @@
 [
   {
-    "id": 1,
+    "id": 0,
     "felhasznaloid": 1,
-    "valtozas": 551512,
-    "date": "2026-10-15T09:28:39.2485935+02:00",
-    "egyenleg": 551512
-  },
-  {
-    "id": 2,
-    "felhasznaloid": 1,
-    "valtozas": -5000,
-    "date": "2026-10-15T09:28:42.9608841+02:00",
-    "egyenleg": 546512
-  },
-  {
-    "id": 3,
-    "felhasznaloid": 1,
-    "valtozas": -5000,
-    "date": "2026-10-15T09:28:43.1162572+02:00",
-    "egyenleg": 541512
-  },
-  {
-    "id": 4,
-    "felhasznaloid": 1,
-    "valtozas": -5000,
-    "date": "2026-10-15T09:28:43.2388072+02:00",
-    "egyenleg": 536512
+    "valtozas": 50000,
+    "date": "2026-10-22T09:08:43.0447362+02:00",
+    "egyenleg": 50000
   }
 ]
